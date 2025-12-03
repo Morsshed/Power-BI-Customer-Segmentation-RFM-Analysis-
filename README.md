@@ -30,6 +30,8 @@ The primary business problems addressed in this project include:
 This project provides a structured analytical approach to uncover these issues and enables the business to make informed decisions regarding pricing, product strategy, customer engagement, and market expansion.
 
  ## ii. Snapshots
+ 
+![RFM Segmentation Dashboard](https://github.com/Morsshed/Power-BI-Customer-Segmentation-RFM-Analysis-/blob/main/RFM%20Segmentation.png?raw=true)
 
  ## iii. Dashboard Features
 
