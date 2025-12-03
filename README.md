@@ -1,10 +1,8 @@
 # Power-BI-Customer-Segmentation-RFM-Analysis-
 Customer Lifetime Value (CLV) and Customer RFM Segmentation
 
-# 1. Power-BI: Sales-Analysis
 
-
- ### 1. Domain: Retail
+ ###  Domain: Retail
 
 # Analysis Details
  ## i. Business Case
