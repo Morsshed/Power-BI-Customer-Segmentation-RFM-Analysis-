@@ -48,20 +48,19 @@ The company is experiencing a diversified customer purchase pattern where only a
 
  ## iii. Dashboard Features
 
-                             Dynamic Features:
-                                              1. Tooltips : Matrix in Line Chart
-                                              2. Drill Through : Table Chart with Gauge Charts
-                                              3. Drill Down : Stacked Bar Charts
-                                              4. Filed Parameter : Sales Metrics                  
-                             Analytical Features:
-                                              1. KPI Cards : Total Orders, Total Revenue, Net Profit, Profit Margin and Rate of Return
-                                              2. Stacked Bard Chart: Number of Orders by Category and Sub Category
-                                              3. Line Charts : Trend and Forecasting, Net Profit Vs Adjusted Profit
-                                              4. Table chart : Top 10 Products by Profit, Sales by Continents/Country/Regions
-                                              5. Gauge Charts : Tagrgets VS Profit/Order/Revenue
-                                              6. Map : Country by Total Revenue
-                                              7. Pie Charts : Customers' Demographic Analyses
-                                              8. Matrix : Customer Segmentation
+                  Dynamic Features:
+                                  1. Slicers : Matrix in Line Chart
+                                  2. Metric : Table Chart with Gauge Charts
+                                  3. Power BI Published Dataset                
+                  Analytical Features:
+                                  1. KPI Cards : Total Orders, Total Customers, Revenue Per Customer
+                                  2. Stacked Bard Chart: Number of Orders by Category and Sub Category
+                                  3. Line Charts : Trend and Forecasting, Net Profit Vs Adjusted Profit
+                                  4. Table chart : Top 10 Products by Profit, Sales by Continents/Country/Regions
+                                  5. Gauge Charts : Tagrgets VS Profit/Order/Revenue
+                                  6. Map : Country by Total Revenue
+                                  7. Pie Charts : Customers' Demographic Analyses
+                                  8. Matrix : Customer Segmentation
                                               
  ## iv. Insights and Recommendations
 
@@ -280,9 +279,9 @@ Parenthood segmentation shows Non-parent customers contribute slightly more reve
                       'RFM Table'[R Score] & 'RFM Table'[F Score] & 'RFM Table'[M Score]
                                                       
 
- ## A3.3 - Calculated Measures (KPI Measures)
+ ## A3.3 - Calculated Measures
 
-  
+   ### KPI Measures
                                    Total Sales = SUM(FactSales[Sale Value])
                                    Total Revenue = SUMX(FactSales,FactSales[OrderQuantity]*RELATED(DimProduct[ProductPrice]))
                                    Total Cost = SUMX(FactSales,FactSales[OrderQuantity]*RELATED(DimProduct[ProductCost]))
@@ -291,9 +290,27 @@ Parenthood segmentation shows Non-parent customers contribute slightly more reve
                                    Number of Customers who Purchased = DISTINCTCOUNT(FactSales[CustomerKey])
                                    Revenue per Customer = DIVIDE([Total Revenue], [# of Customers who Purchased], BLANK())
                                    Total Customers = COUNTROWS(DimCustomer)
+
+   ### RFM Metrics
+                                  Last Business Date = 
+                                  CALCULATE(
+                                      [Last Purchase Date],
+                                      REMOVEFILTERS(FactSales)
+                                      //,
+                                      // VALUES(DimDate[Date]),
+                                      // VALUES(DimTerritory[Region]),
+                                      // VALUES(DimCategories[CategoryName])
+                                  )
+                                  
+                                  Last Purchase Date = MAX(FactSales[OrderDate]) 
+                                  Recency Modified = 
+                                  IF(
+                                      ISINSCOPE(FactSales[CustomerKey]),
+                                      DATEDIFF([Last Purchase Date],[Last Business Date],DAY),
+                                      BLANK()
+                                  )
  
  ## A3.4 - Field Parameters
-
                                    Parameter = {
                                        ("# of Customers who Purchased", NAMEOF('_DAXMeasures'[# of Customers who Purchased]), 0),
                                        ("Revenue per Customer", NAMEOF('_DAXMeasures'[Revenue per Customer]), 1)
@@ -305,7 +322,6 @@ Parenthood segmentation shows Non-parent customers contribute slightly more reve
                                      ("Return Rate", NAMEOF('_DAXMeasures'[Return Rate]), 1),
                                      ("Total Revenue", NAMEOF('_DAXMeasures'[Total Revenue]), 2)
                                  }
-
    ## A2.3 - RFM Score Table 
 
 ![RFM Score Overview](https://github.com/Morsshed/Power-BI-Customer-Segmentation-RFM-Analysis-/blob/main/RFM%20Score.png?raw=true)
