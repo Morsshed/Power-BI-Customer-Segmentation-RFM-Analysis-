@@ -229,15 +229,8 @@ Recommendations for Business Growth
 ![RFM Score Overview](https://github.com/Morsshed/Power-BI-Customer-Segmentation-RFM-Analysis-/blob/main/RFM%20Score.png?raw=true)
   
 # B - Analyses and Interactivities:
-  ## B1 - KPI and Trend Analysis
-  ![KPI and Trend Analysis](https://github.com/Morsshed/1.-Power-BI-E-Commerce-Sales-Analysis/blob/main/KPI%20and%20Trend%20Analysis.png?raw=true) 
-  ## B2 - Territory Analysis
-  ![Territory Analysis](https://github.com/Morsshed/1.-Power-BI-E-Commerce-Sales-Analysis/blob/main/Territory%20Analysis.png?raw=true)
-  ## B3 - Customer Analysis
-  ![Customer Analysis](https://github.com/Morsshed/1.-Power-BI-E-Commerce-Sales-Analysis/blob/main/Customer%20Analysis.png?raw=true)
-  ## B4 - Product Analysis
-  ![Product Analysis](https://github.com/Morsshed/1.-Power-BI-E-Commerce-Sales-Analysis/blob/main/Product%20Analysis.png?raw=true)
 
-# Conclusion
+
+# C - Conclusion
 I truly enjoyed working on this project from beginning to end. Experiencing the full process provided valuable insights into both the data and the visuals. I look forward to tackling similar projects in the future and exploring even more complex datasets.
 
