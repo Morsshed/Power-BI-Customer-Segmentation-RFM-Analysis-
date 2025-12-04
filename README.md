@@ -49,18 +49,15 @@ The company is experiencing a diversified customer purchase pattern where only a
  ## iii. Dashboard Features
 
                   Dynamic Features:
-                                  1. Slicers : Matrix in Line Chart
-                                  2. Metric : Table Chart with Gauge Charts
+                                  1. Slicers : Regions, Category Name, Priority Customer, Income Level 
+                                  2. Metric : Parameters with Line Chart
                                   3. Power BI Published Dataset                
                   Analytical Features:
                                   1. KPI Cards : Total Orders, Total Customers, Revenue Per Customer
-                                  2. Stacked Bard Chart: Number of Orders by Category and Sub Category
-                                  3. Line Charts : Trend and Forecasting, Net Profit Vs Adjusted Profit
-                                  4. Table chart : Top 10 Products by Profit, Sales by Continents/Country/Regions
-                                  5. Gauge Charts : Tagrgets VS Profit/Order/Revenue
-                                  6. Map : Country by Total Revenue
-                                  7. Pie Charts : Customers' Demographic Analyses
-                                  8. Matrix : Customer Segmentation
+                                  2. AI Visual: Decomposition Tree on Parenthood and Occupations of Customers
+                                  3. Line Charts : Monthly Trends on Number of Customers who Purchased vs Customer per Revenue
+                                  4. Table chart : RFM Analysis
+                                  5. Matrix : Customer Segmentation
                                               
  ## iv. Insights and Recommendations
 
@@ -177,7 +174,7 @@ Parenthood segmentation shows Non-parent customers contribute slightly more reve
 
 ● Reduced granularity conflicts by using consistent keys across all tables.
 
-# A2 - Data Modelling (Relationship)
+# A2 - Data Modeling (Relationship)
 
                                          Fact Tables:
                                                1. Fact Sales
@@ -188,11 +185,11 @@ Parenthood segmentation shows Non-parent customers contribute slightly more reve
                                                4. Dim Category
                                                5. Dim Territory
 
-  ## A2.1 - Model
+  ## A2.1 - Data Model
   
 ![RFM Modeling Diagram](https://github.com/Morsshed/Power-BI-Customer-Segmentation-RFM-Analysis-/blob/main/RFM%20Modeling.png?raw=true)
  
-  ## A2.2 - RFM Lookup Segmentation
+  ## A2.2 - Lookup RFM Segmentation
 
 ![Lookup RFM Table](https://github.com/Morsshed/Power-BI-Customer-Segmentation-RFM-Analysis-/blob/main/Lookup%20RFM%20Table.png?raw=true)
  
@@ -303,6 +300,7 @@ Parenthood segmentation shows Non-parent customers contribute slightly more reve
                                   )
                                   
                                   Last Purchase Date = MAX(FactSales[OrderDate]) 
+                                  
                                   Recency Modified = 
                                   IF(
                                       ISINSCOPE(FactSales[CustomerKey]),
