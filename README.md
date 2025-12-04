@@ -1,6 +1,7 @@
 # Power-BI-Customer-Segmentation-RFM-Analysis-
 Customer Lifetime Value (CLV) and Customer RFM Segmentation
 
+[View the Power BI Customer Analysis Dashboard](https://app.powerbi.com/view?r=eyJrIjoiNDA2YzBkODMtZWViMy00YWFhLWE4NGQtNWEzMWNlMDc1YTAyIiwidCI6IjFhOTM4M2ZmLTVlMDEtNDkzYy04MTJmLTg0ODAzZTliMGI3YiJ9)
 
  ###  Domain: Retail
 
