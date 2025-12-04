@@ -225,7 +225,9 @@ Recommendations for Business Growth
                                  }
 
    ## A2.3 - RFM Score Table 
-   
+
+![RFM Score Overview](https://github.com/Morsshed/Power-BI-Customer-Segmentation-RFM-Analysis-/blob/main/RFM%20Score.png?raw=true)
+  
 # B - Analyses and Interactivities:
   ## B1 - KPI and Trend Analysis
   ![KPI and Trend Analysis](https://github.com/Morsshed/1.-Power-BI-E-Commerce-Sales-Analysis/blob/main/KPI%20and%20Trend%20Analysis.png?raw=true) 
