@@ -8,27 +8,39 @@ Customer Lifetime Value (CLV) and Customer RFM Segmentation
 # Analysis Details
  ## i. Business Case
  
-🚩 Problem Statement:
+### Business Problem Statement
 
-The E-Commerce Sales Analytics Dashboard aims to address several key business challenges related to sales performance, customer behavior, product profitability, and regional growth. Despite generating strong revenue and profit, the organization faces gaps in customer retention, uneven regional performance, and product return issues that impact overall business efficiency. To support data-driven decision-making, the project focuses on identifying underlying issues and converting raw transactional data into meaningful insights.
+The company is experiencing a diversified customer purchase pattern where only a small group of high-value customers consistently contribute to revenue, while a majority remain in early-engagement stages such as Promising or Potential Loyalists. Although total revenue performance is stable, customer purchase frequency shows signs of fluctuation, and several customer segments are at risk of churn due to declining recency in their purchase behavior. To sustain growth, the business needs an effective segmentation-driven strategy to enhance customer retention, increase repeat purchase behavior, and convert mid-tier customers into top-value champions.
 
-The primary business problems addressed in this project include:
+### Key Issues Identified
 
-✔️ Declining revenue per customer at the start of each month, indicating potential behavioral or promotional timing gaps.
+► Revenue is heavily dependent on a limited high-value customer segment (Champions & Loyal Customers).
 
-✔️ High return rates in specific product categories, especially Shorts, which negatively impact profit margins and customer satisfaction.
+► Large customer share falls in Promising or Potential Loyalist categories, indicating untapped lifetime value.
 
-✔️ Regional sales imbalance, with North America outperforming other regions, highlighting untapped market potential in Europe, Asia-Pacific, and South America.
+► Noticeable drop in purchase volume during certain periods despite revenue per customer remaining stable.
 
-✔️ Dependence on a small group of high-performing products, increasing risk if demand shifts.
+► Several customers show high recency value (haven’t purchased recently), signaling early churn.
 
-✔️ Suboptimal customer retention, where many customers fall into “Potential Loyalists” or “At-Risk” segments instead of moving into loyal or champion categories.
+► Professional occupation group dominates revenue contribution — reliance on one segment poses risk.
 
-✔️ Insufficient demographic targeting, as the business lacks actionable insights into how age, gender, and marital status influence purchase behavior.
+► Lower purchasing frequency among high spenders suggests lack of loyalty reinforcement.
 
-✔️ Inefficient forecasting and inventory allocation, causing fluctuations in demand planning.
+► Slow conversion rate of low-value groups into loyal customers affects long-term growth potential.
 
-This project provides a structured analytical approach to uncover these issues and enables the business to make informed decisions regarding pricing, product strategy, customer engagement, and market expansion.
+### Business Objectives
+
+○ Increase recurrent purchases by designing retention and engagement strategies.
+
+○ Convert mid-tier customers into loyal and champion segments.
+
+○ Recover inactive or slipping customers via targeted win-back campaigns.
+
+○ Reduce dependency on a single high-revenue demographic.
+
+○ Improve customer lifetime value through RFM-driven personalization.
+
+○ Track customer movement between RFM segments over time for continuous optimization.
 
  ## ii. Snapshot
  
@@ -51,9 +63,7 @@ This project provides a structured analytical approach to uncover these issues a
                                               7. Pie Charts : Customers' Demographic Analyses
                                               8. Matrix : Customer Segmentation
                                               
- ## iv. Insights and RecommendationS
-
-► ●  ✓
+ ## iv. Insights and Recommendations
 
 ### Overall Findings
 
@@ -138,25 +148,23 @@ Parenthood segmentation shows Non-parent customers contribute slightly more reve
 
 ### Data Transformation
 
-✓ Created new calculated columns such as Order Line Item, Retail Price, and Return Quantity to enrich analytical capabilities.
-
-✓ Split and transformed fields where necessary to improve clarity and usability.
-
-✓ Reassigned data types (Whole Number, Decimal, Text, Date) to ensure accurate aggregations and relationships.
-
-✓ Applied conditional transformations to derive customer segments, product groupings, and territory regions.
+● Cleaned dataset by handling missing values, trimming text spaces, formatting dates, and ensuring numeric columns were properly typed.
+● Created calculated fields required for RFM segmentation:
+  – Recency = Days since last purchase
+  – Frequency = Total number of orders per customer
+  – Monetary = Total revenue generated by each customer
+● Applied DAX transformations to generate RFM Score, Net Profit, and segmentation logic using lookup tables.
+● Built parameter-based measures for Revenue per Customer and No. of Customers who Purchased for dynamic reporting.
+● Standardized categorical columns (Occupation, Region, Income Level etc.) for uniform filtering and slicing.
 
 ### Data Normalization
 
-✓ Organized the model using a snowflake-style normalized structure:
-
-✓ Product Categories → Subcategories → Products
-
-✓ This reduced redundancy and improved query performance.
-
-✓ Consolidated customer attributes (Age, Gender, Income, Education, etc.) into a dedicated DimCustomer table instead of storing them repeatedly in sales records.
-
-✓ Centralized date-related fields (Year, Month, Quarter, Week) into DimDate to enable standardized time-based analysis.
+● Split raw data into Fact & Dimension tables to follow standard analytical modeling practices.
+● Avoided data redundancy by storing repeating attributes (Region, Income Level, Category, Occupation) in separate dimension tables.
+● Ensured 1-to-many (1:M) relationships between dimensions & fact table to maintain referential integrity.
+● Created a dedicated Date table marked as Date Dimension for proper time intelligence functions.
+● Generated Lookup RFM Table to normalize segment classification separate from transaction calculations.
+● Reduced granularity conflicts by using consistent keys across all tables.
 
 # A2 - Data Modelling (Relationship)
 
