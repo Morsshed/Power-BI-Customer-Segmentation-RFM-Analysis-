@@ -108,9 +108,9 @@ Recommendations for Business Growth
                                                6. Dim Territory
 
   ## A2.1 - Model
-
-![Data Modelling](https://github.com/Morsshed/1.-Power-BI-E-Commerce-Sales-Analysis/blob/main/Data%20Modelling.png?raw=true) 
   
+![RFM Modeling Diagram](https://github.com/Morsshed/Power-BI-Customer-Segmentation-RFM-Analysis-/blob/main/RFM%20Modeling.png?raw=true)
+ 
   ## A2.2 - Cardinality
 
 ![Table Cardinality](https://github.com/Morsshed/1.-Power-BI-E-Commerce-Sales-Analysis/blob/main/Table%20Cardinality.png?raw=true) 
