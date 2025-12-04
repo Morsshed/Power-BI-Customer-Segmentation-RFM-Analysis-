@@ -111,7 +111,8 @@ Recommendations for Business Growth
   
 ![RFM Modeling Diagram](https://github.com/Morsshed/Power-BI-Customer-Segmentation-RFM-Analysis-/blob/main/RFM%20Modeling.png?raw=true)
  
-  ## A2.2 - RFM Lookup Table
+  ## A2.2 - RFM Lookup Segmentation
+  
  
 
 # A3 - DAX
