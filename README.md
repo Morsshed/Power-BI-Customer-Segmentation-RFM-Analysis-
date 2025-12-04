@@ -30,7 +30,7 @@ The primary business problems addressed in this project include:
 
 This project provides a structured analytical approach to uncover these issues and enables the business to make informed decisions regarding pricing, product strategy, customer engagement, and market expansion.
 
- ## ii. Snapshots
+ ## ii. Snapshot
  
 ![RFM Segmentation Dashboard](https://github.com/Morsshed/Power-BI-Customer-Segmentation-RFM-Analysis-/blob/main/RFM%20Segmentation.png?raw=true)
 
@@ -98,14 +98,12 @@ Recommendations for Business Growth
 
                                          Fact Tables:
                                                1. Fact Sales
-                                               2. Fact Returns
                                          Dimension Tables:
                                                1. Dim Customer
                                                2. Dim Date
                                                3. Dim Product
                                                4. Dim Category
-                                               5. Dim SubCategory
-                                               6. Dim Territory
+                                               5. Dim Territory
 
   ## A2.1 - Model
   
@@ -230,6 +228,7 @@ Recommendations for Business Growth
   
 # B - Analyses and Interactivities:
 
+![RFM Segmentation Dashboard](https://github.com/Morsshed/Power-BI-Customer-Segmentation-RFM-Analysis-/blob/main/RFM%20Segmentation.png?raw=true)
 
 # C - Conclusion
 I truly enjoyed working on this project from beginning to end. Experiencing the full process provided valuable insights into both the data and the visuals. I look forward to tackling similar projects in the future and exploring even more complex datasets.
