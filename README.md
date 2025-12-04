@@ -111,19 +111,25 @@ Recommendations for Business Growth
   
 ![RFM Modeling Diagram](https://github.com/Morsshed/Power-BI-Customer-Segmentation-RFM-Analysis-/blob/main/RFM%20Modeling.png?raw=true)
  
-  ## A2.2 - Cardinality
-
-![Table Cardinality](https://github.com/Morsshed/1.-Power-BI-E-Commerce-Sales-Analysis/blob/main/Table%20Cardinality.png?raw=true) 
-
-  ## A2.3 - Filter Direction
-  
-![Common Filter Direction](https://github.com/Morsshed/1.-Power-BI-E-Commerce-Sales-Analysis/blob/main/Common%20Filter%20Direction.png?raw=true)
+  ## A2.2 - RFM Lookup Table
+ 
 
 # A3 - DAX
 
  ## A3.1 - Calculated Tables
 
-   ### A3.1.1 Lookup Date Table
+   ### A3.1.2 Lookup RFM Table
+
+                            RFM Table = 
+                         SUMMARIZE(
+                             FactSales,
+                             FactSales[CustomerKey],
+                             "R Value", [Recency Modified],
+                             "F Value", [# of Orders],
+                             "M Value", [Total Revenue]
+                             )
+                            
+   ### A3.1.2 Lookup Date Table
    
        let
           Source = {Number.From(List.Min(FactSales[OrderDate]))..Number.From(List.Max(FactSales[OrderDate]))},
@@ -156,83 +162,68 @@ Recommendations for Business Growth
  
  ## A3.2 - Calculated Columns
 
-                                  Age Group = 
-                                    SWITCH(
-                                        TRUE(),
-                                        DimCustomer[Age] <= 16, "0-16y",
-                                        DimCustomer[Age] <= 30, "17-30y",
-                                        DimCustomer[Age] <= 60, "31-60y",
-                                        "61y+"
-                                    )
-
-                                  Priority Customers = 
-                                     IF(
-                                       DimCustomer[AnnualIncome] >= 100000 && DimCustomer[Is Parent?] = "Yes",
-                                         "Priority", "Standard"
-                                     ) 
-
-                                  Price Group = 
-                                      SWITCH(
-                                          TRUE(),
-                                          DimProduct[ProductPrice] >= 500, "Premium",
-                                          DimProduct[ProductPrice] >= 150, "Mid-Range",
-                                          "Low"
-                                      )
-
-                                  Retail Price = RELATED(DimProduct[ProductPrice])
-                                  Sale Value = FactSales[OrderQuantity] * FactSales[Retail Price]
+                      R Score = 
+                      SWITCH(
+                          TRUE(),
+                          'RFM Table'[R Value]<= PERCENTILE.INC('RFM Table'[R Value], 0.20),5,
+                          'RFM Table'[R Value]<= PERCENTILE.INC('RFM Table'[R Value], 0.40),4,
+                          'RFM Table'[R Value]<= PERCENTILE.INC('RFM Table'[R Value], 0.60),3,
+                          'RFM Table'[R Value]<= PERCENTILE.INC('RFM Table'[R Value], 0.80),2,
+                          1
+                      )
+                      
+                      F Score = 
+                      SWITCH(
+                          TRUE(),
+                          'RFM Table'[F Value]<= PERCENTILE.INC('RFM Table'[F Value], 0.20),1,
+                          'RFM Table'[F Value]<= PERCENTILE.INC('RFM Table'[F Value], 0.40),2,
+                          'RFM Table'[F Value]<= PERCENTILE.INC('RFM Table'[F Value], 0.60),3,
+                          'RFM Table'[F Value]<= PERCENTILE.INC('RFM Table'[F Value], 0.80),4,
+                          5
+                      )
+                                                       
+                      M Score = 
+                      SWITCH(
+                          TRUE(),
+                          'RFM Table'[M Value]<= PERCENTILE.INC('RFM Table'[M Value], 0.20),1,
+                          'RFM Table'[M Value]<= PERCENTILE.INC('RFM Table'[M Value], 0.40),2,
+                          'RFM Table'[M Value]<= PERCENTILE.INC('RFM Table'[M Value], 0.60),3,
+                          'RFM Table'[M Value]<= PERCENTILE.INC('RFM Table'[m Value], 0.80),4,
+                          5
+                      )
+                      
+                      RFM Score = 
+                      'RFM Table'[R Score] & 'RFM Table'[F Score] & 'RFM Table'[M Score]
+                                                      
 
  ## A3.3 - Calculated Measures (KPI Measures)
- 
-  #### Sales & Profits
+
   
                                    Total Sales = SUM(FactSales[Sale Value])
                                    Total Revenue = SUMX(FactSales,FactSales[OrderQuantity]*RELATED(DimProduct[ProductPrice]))
                                    Total Cost = SUMX(FactSales,FactSales[OrderQuantity]*RELATED(DimProduct[ProductCost]))
                                    Net Profit = [Total Revenue]-[Total Cost]
-                                   Profit Margin = DIVIDE([Net Profit], [Total Revenue], BLANK())
-                                   Profit Target = [PM Profit]*1.1
-                                   Profit Target Gap = [Net Profit]-[Profit Target]
-                                   Revenue Target = [PM Revenue]*1.1
-                                   Revenue Target Gap = [Total Revenue]-[Revenue Target]
+                                   Number of Orders = DISTINCTCOUNT(FactSales[OrderNumber])
+                                   Number of Customers who Purchased = DISTINCTCOUNT(FactSales[CustomerKey])
+                                   Revenue per Customer = DIVIDE([Total Revenue], [# of Customers who Purchased], BLANK())
+                                   Total Customers = COUNTROWS(DimCustomer)
+ 
+ ## A3.4 - Field Parameters
 
-   #### Orders
+                                   Parameter = {
+                                       ("# of Customers who Purchased", NAMEOF('_DAXMeasures'[# of Customers who Purchased]), 0),
+                                       ("Revenue per Customer", NAMEOF('_DAXMeasures'[Revenue per Customer]), 1)
+                                   }
+ ## A3.5 - Numeric Parameters
+ 
+                                 Sales Metrics = {
+                                     ("# of Orders", NAMEOF('_DAXMeasures'[# of Orders]), 0),
+                                     ("Return Rate", NAMEOF('_DAXMeasures'[Return Rate]), 1),
+                                     ("Total Revenue", NAMEOF('_DAXMeasures'[Total Revenue]), 2)
+                                 }
+
+   ## A2.3 - RFM Score Table 
    
-                                    Number of Orders = DISTINCTCOUNT(FactSales[OrderNumber])
-                                    AOV = DIVIDE([Total Revenue], [# of Orders], BLANK())
-                                    AVG Basket Size = DIVIDE([Quantity Ordered], [# of Orders], BLANK())
-                                    Order Target = [PM Order]*1.1
-                                    Order Target Gap = [# of Orders]- [Order Target]
-                                    Price Per Item = DIVIDE([Total Revenue],[Quantity Ordered], BLANK())
-                                    Quantity Ordered = sum(FactSales[OrderQuantity])
-
-   #### Customers 
-
-                                    Number of Customers who Purchased = DISTINCTCOUNT(FactSales[CustomerKey])
-                                    Revenue per Customer = DIVIDE([Total Revenue], [# of Customers who Purchased], BLANK())
-                                    Total Customers = COUNTROWS(DimCustomer)
-  
-   #### Returns 
-
-                                    Quantity Returned = SUM(FactReturns[ReturnQuantity])
-                                    Return Rate = DIVIDE([Quantity Returned],[Quantity Ordered], BLANK())
-                                    Total Returns = COUNTROWS(FactReturns)
-
-   #### Adjusted Pricer (5%)
-
-                                    Adjusted Price = [AVG Retail Price]* (1+'Price Adjustment (%)'[Price Adjustment (%) Value])
-                                    Adjusted Profit = [Adjusted Revenue]-[Total Cost]
-                                    Adjusted Revenue = SUMX(FactSales, FactSales[OrderQuantity]*[Adjusted Price])
-                                    AVG Retail Price = AVERAGE(DimProduct[ProductPrice])
-
-   #### Time Intelligence 
-
-                                   Order YTD = CALCULATE([# of Orders], DATESYTD(DimDate[Date]))
-                                   PM Profit = CALCULATE([Net Profit], DATEADD(DimDate[Date],-1,MONTH))
-                                   PM Quantity Returned = CALCULATE([Quantity Returned], DATEADD(DimDate[Date],-1,MONTH))
-                                   PM Revenue = CALCULATE([Total Revenue], DATEADD(DimDate[Date],-1,MONTH) )
-                                   PM Order = CALCULATE([# of Orders], DATEADD(DimDate[Date],-1,MONTH))
-
 # B - Analyses and Interactivities:
   ## B1 - KPI and Trend Analysis
   ![KPI and Trend Analysis](https://github.com/Morsshed/1.-Power-BI-E-Commerce-Sales-Analysis/blob/main/KPI%20and%20Trend%20Analysis.png?raw=true) 
